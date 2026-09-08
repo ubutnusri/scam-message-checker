@@ -2,39 +2,40 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Scam Message Checker | Digital Problem Solver India</title>
 
 <style>
 
-/* =========================
-   GENERAL PAGE DESIGN
-========================= */
+* {
+    box-sizing: border-box;
+}
 
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f6f8;
     margin: 0;
     padding: 20px;
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    color: #222;
 }
 
 .container {
-    max-width: 800px;
+    max-width: 850px;
     margin: auto;
     background: #ffffff;
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+    box-shadow: 0 5px 25px rgba(0,0,0,0.10);
 }
 
-
-/* =========================
-   HEADINGS
-========================= */
+.brand {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
 
 h1 {
     text-align: center;
@@ -47,168 +48,117 @@ h1 {
     line-height: 1.6;
 }
 
-
-/* =========================
-   TEXT AREA
-========================= */
-
 textarea {
-
     width: 100%;
-
-    height: 200px;
-
+    height: 220px;
     padding: 15px;
-
     margin-top: 20px;
-
     font-size: 16px;
-
-    border: 1px solid #cccccc;
-
+    border: 1px solid #ccc;
     border-radius: 10px;
-
-    box-sizing: border-box;
-
     resize: vertical;
-
 }
 
+.counter {
+    text-align: right;
+    margin-top: 5px;
+    font-size: 13px;
+    color: #777;
+}
 
-/* =========================
-   BUTTON
-========================= */
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
 
 button {
-
-    width: 100%;
-
+    flex: 1;
     padding: 15px;
-
-    margin-top: 15px;
-
-    font-size: 17px;
-
+    font-size: 16px;
     font-weight: bold;
-
     border: none;
-
     border-radius: 10px;
-
     cursor: pointer;
+}
 
-    background: #222222;
-
+.check-btn {
+    background: #222;
     color: white;
+}
 
+.clear-btn {
+    background: #e5e5e5;
+    color: #222;
 }
 
 button:hover {
-
     opacity: 0.85;
-
 }
-
-
-/* =========================
-   RESULT BOX
-========================= */
 
 #result {
-
-    margin-top: 25px;
-
-    padding: 20px;
-
-    border-radius: 12px;
-
     display: none;
-
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 12px;
 }
-
-
-/* LOW RISK */
 
 .low {
-
     background: #e8f5e9;
-
     border: 1px solid #4caf50;
-
 }
-
-
-/* MEDIUM RISK */
 
 .medium {
-
     background: #fff8e1;
-
     border: 1px solid #ff9800;
-
 }
-
-
-/* HIGH RISK */
 
 .high {
-
     background: #ffebee;
-
     border: 1px solid #f44336;
-
 }
-
-
-/* =========================
-   WARNING LIST
-========================= */
 
 .warning-list {
-
-    margin-top: 15px;
-
     line-height: 1.8;
-
 }
 
-
-/* =========================
-   DISCLAIMER
-========================= */
+.category-box {
+    margin-top: 15px;
+    padding: 12px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 8px;
+}
 
 .disclaimer {
-
     margin-top: 30px;
-
-    padding: 15px;
-
+    padding: 18px;
     background: #f8f8f8;
-
     border-radius: 10px;
-
     font-size: 13px;
-
-    color: #555;
-
     line-height: 1.7;
-
+    color: #555;
 }
 
-
-/* =========================
-   FOOTER
-========================= */
-
 .footer {
-
     text-align: center;
-
-    margin-top: 20px;
-
+    margin-top: 25px;
     font-size: 12px;
-
     color: #777;
+}
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
 
 }
 
@@ -219,12 +169,13 @@ button:hover {
 
 <body>
 
-
 <div class="container">
 
+<div class="brand">
+DIGITAL PROBLEM SOLVER INDIA
+</div>
 
 <h1>🔎 Scam Message Checker</h1>
-
 
 <p class="subtitle">
 
@@ -233,29 +184,40 @@ or online message below.
 
 <br><br>
 
-The tool checks for common scam warning indicators.
+This tool checks for common scam warning indicators.
 
 </p>
 
 
 <textarea
-
 id="message"
-
+maxlength="10000"
 placeholder="Paste suspicious message here...
 
 Example:
-Your bank account will be blocked today.
-Update your KYC immediately by clicking this link...">
 
-</textarea>
+URGENT! Your bank account will be blocked.
+Update your KYC immediately by clicking this link..."></textarea>
 
 
-<button onclick="checkMessage()">
+<div class="counter">
 
-Check Message
+<span id="charCount">0</span> / 10000 characters
 
+</div>
+
+
+<div class="button-group">
+
+<button class="check-btn" onclick="checkMessage()">
+🔍 Check Message
 </button>
+
+<button class="clear-btn" onclick="clearMessage()">
+Clear
+</button>
+
+</div>
 
 
 <div id="result"></div>
@@ -263,36 +225,26 @@ Check Message
 
 <div class="disclaimer">
 
-<strong>Important Privacy Notice</strong>
-
-<br><br>
-
-Do not enter:
+<strong>Privacy & Safety Notice</strong>
 
 <ul>
 
-<li>Passwords</li>
+<li>Your message is processed inside your browser.</li>
 
-<li>OTP</li>
+<li>This version does not require you to create an account.</li>
 
-<li>UPI PIN</li>
+<li>Do not enter OTPs, passwords, PINs or card details.</li>
 
-<li>ATM PIN</li>
+<li>Do not enter banking credentials.</li>
 
-<li>Banking passwords</li>
+<li>This tool checks for warning indicators only.</li>
 
-<li>Card CVV</li>
-
-<li>Full card details</li>
+<li>It cannot guarantee that a message is genuine or fraudulent.</li>
 
 </ul>
 
-This tool checks for common warning indicators only.
-
-It cannot guarantee that a message is genuine or fraudulent.
-
-Always verify suspicious messages through the official
-website or official customer-care channel.
+Always verify suspicious communications through the official
+website, official application, or official customer-care channel.
 
 </div>
 
@@ -303,10 +255,9 @@ Digital Problem Solver India
 
 <br>
 
-Simple solutions for everyday digital problems.
+Simple Solutions for Everyday Digital Problems
 
 </div>
-
 
 </div>
 
@@ -314,45 +265,66 @@ Simple solutions for everyday digital problems.
 <script>
 
 
-function checkMessage() {
+/* CHARACTER COUNTER */
+
+const messageBox =
+document.getElementById("message");
+
+const charCount =
+document.getElementById("charCount");
 
 
-/* =========================
-   GET USER MESSAGE
-========================= */
+messageBox.addEventListener("input", function() {
 
-let message = document
-.getElementById("message")
-.value
-.toLowerCase()
-.trim();
+charCount.textContent =
+messageBox.value.length;
+
+});
 
 
-/* =========================
-   CHECK EMPTY MESSAGE
-========================= */
+/* CLEAR BUTTON */
 
-if (message === "") {
+function clearMessage() {
 
-    alert("Please paste a message first.");
+messageBox.value = "";
 
-    return;
+charCount.textContent = "0";
+
+document.getElementById("result").style.display = "none";
+
+messageBox.focus();
 
 }
 
 
-/* =========================
-   START SCORE
-========================= */
+/* MAIN ANALYSIS */
+
+function checkMessage() {
+
+
+let message =
+messageBox.value
+.toLowerCase()
+.trim();
+
+
+if (message === "") {
+
+alert("Please paste a message first.");
+
+return;
+
+}
+
 
 let score = 0;
 
 let warnings = [];
 
+let categories = [];
 
-/* =========================
-   SCAM INDICATORS DATABASE
-========================= */
+
+/* INDICATOR DATABASE */
 
 const indicators = [
 
@@ -361,40 +333,42 @@ const indicators = [
 
 {
 words: [
-
 "urgent",
 "immediately",
-"today only",
 "act now",
-"limited time",
+"today only",
+"last chance",
 "within 24 hours",
-"last chance"
-
+"limited time",
+"do not ignore",
+"act immediately"
 ],
 
 warning:
-"Urgent or pressure-based language detected"
+"Urgent or pressure-based language detected",
 
+category:
+"Social Engineering"
 },
 
 
-/* ACCOUNT THREAT */
+/* BANK ACCOUNT THREAT */
 
 {
 words: [
-
 "account blocked",
 "account will be blocked",
 "account suspended",
-"suspended",
 "account deactivated",
-"close your account"
-
+"bank account blocked",
+"card blocked"
 ],
 
 warning:
-"Account blocking or suspension threat detected"
+"Account or card blocking threat detected",
 
+category:
+"Banking Scam"
 },
 
 
@@ -402,110 +376,38 @@ warning:
 
 {
 words: [
-
 "otp",
-"one time password"
-
+"one time password",
+"share otp",
+"send otp"
 ],
 
 warning:
-"OTP-related request detected"
+"OTP-related request detected",
 
+category:
+"Banking Scam"
 },
 
 
-/* SENSITIVE BANKING DATA */
+/* BANKING INFORMATION */
 
 {
 words: [
-
 "upi pin",
 "atm pin",
 "cvv",
 "bank password",
-"share password"
-
+"share password",
+"card number",
+"debit card details"
 ],
 
 warning:
-"Request for sensitive banking information detected"
+"Request for sensitive banking information detected",
 
-},
-
-
-/* CLICK ACTION */
-
-{
-words: [
-
-"click here",
-"click the link",
-"verify now",
-"click below",
-"open this link"
-
-],
-
-warning:
-"Suspicious action request detected"
-
-},
-
-
-/* APP DOWNLOAD */
-
-{
-words: [
-
-".apk",
-"download app",
-"install app",
-"install application"
-
-],
-
-warning:
-"Application download request detected"
-
-},
-
-
-/* LOTTERY */
-
-{
-words: [
-
-"lottery",
-"you won",
-"prize money",
-"cash prize",
-"congratulations you won"
-
-],
-
-warning:
-"Lottery or prize claim detected"
-
-},
-
-
-/* PAYMENT */
-
-{
-words: [
-
-"pay now",
-"send money",
-"processing fee",
-"verification fee",
-"registration fee",
-"pay immediately"
-
-],
-
-warning:
-"Payment request detected"
-
+category:
+"Banking Scam"
 },
 
 
@@ -513,17 +415,97 @@ warning:
 
 {
 words: [
-
 "kyc update",
 "update kyc",
 "kyc expired",
-"kyc verification"
-
+"kyc verification",
+"complete kyc"
 ],
 
 warning:
-"KYC-related request detected"
+"KYC-related request detected",
 
+category:
+"Banking Scam"
+},
+
+
+/* CLICK LINK */
+
+{
+words: [
+"click here",
+"click the link",
+"click below",
+"verify now",
+"open this link"
+],
+
+warning:
+"Suspicious action or link request detected",
+
+category:
+"Phishing Scam"
+},
+
+
+/* APK */
+
+{
+words: [
+".apk",
+"download app",
+"install app",
+"install application",
+"download this application"
+],
+
+warning:
+"Application download request detected",
+
+category:
+"Remote Access / App Scam"
+},
+
+
+/* LOTTERY */
+
+{
+words: [
+"lottery",
+"you won",
+"cash prize",
+"prize money",
+"winner",
+"claim your prize"
+],
+
+warning:
+"Lottery or prize claim detected",
+
+category:
+"Prize Scam"
+},
+
+
+/* MONEY REQUEST */
+
+{
+words: [
+"pay now",
+"send money",
+"processing fee",
+"verification fee",
+"registration fee",
+"joining fee",
+"pay immediately"
+],
+
+warning:
+"Payment or money request detected",
+
+category:
+"Payment Scam"
 },
 
 
@@ -531,18 +513,19 @@ warning:
 
 {
 words: [
-
-"remote access",
 "anydesk",
 "teamviewer",
+"remote access",
 "screen share",
-"share your screen"
-
+"share your screen",
+"remote support"
 ],
 
 warning:
-"Remote access request detected"
+"Remote access request detected",
 
+category:
+"Remote Access Scam"
 },
 
 
@@ -550,59 +533,100 @@ warning:
 
 {
 words: [
-
 "no interview required",
 "guaranteed job",
-"pay registration fee",
-"pay joining fee"
-
+"work from home income",
+"pay joining fee",
+"job registration fee",
+"earn daily without experience"
 ],
 
 warning:
-"Possible job scam indicator detected"
+"Possible job scam pattern detected",
 
+category:
+"Job Scam"
 },
 
 
-/* PERSONAL DATA */
+/* LOAN SCAM */
 
 {
 words: [
-
-"send aadhaar",
-"send pan card",
-"send bank details"
-
+"instant loan",
+"loan approved immediately",
+"pay processing fee for loan",
+"loan without documents",
+"guaranteed loan approval"
 ],
 
 warning:
-"Request for sensitive personal information detected"
+"Possible loan scam pattern detected",
 
+category:
+"Loan Scam"
+},
+
+
+/* PERSONAL DOCUMENTS */
+
+{
+words: [
+"send aadhaar",
+"send aadhar",
+"send pan card",
+"send bank details",
+"share aadhaar",
+"share pan card"
+],
+
+warning:
+"Request for sensitive personal information detected",
+
+category:
+"Identity Theft Risk"
+},
+
+
+/* TAMIL SCAM KEYWORDS */
+
+{
+words: [
+"உடனடியாக",
+"அவசரம்",
+"உங்கள் கணக்கு முடக்கப்படும்",
+"கணக்கு முடக்கப்படும்",
+"உடனே பணம் செலுத்தவும்",
+"otp அனுப்பவும்",
+"kyc update செய்யவும்",
+"லிங்கை கிளிக் செய்யவும்"
+],
+
+warning:
+"Tamil-language scam warning pattern detected",
+
+category:
+"Tamil Scam Message"
 }
 
 
 ];
 
 
-/* =========================
-   CHECK EACH INDICATOR
-========================= */
+/* CHECK INDICATORS */
 
 indicators.forEach(indicator => {
-
 
 let found = false;
 
 
 indicator.words.forEach(word => {
 
-
 if (message.includes(word)) {
 
 found = true;
 
 }
-
 
 });
 
@@ -613,18 +637,22 @@ score++;
 
 warnings.push(indicator.warning);
 
+
+if (!categories.includes(indicator.category)) {
+
+categories.push(indicator.category);
+
+}
+
 }
 
 
 });
 
 
-/* =========================
-   URL DETECTION
-========================= */
+/* URL DETECTION */
 
 const urlPattern =
-
 /https?:\/\/[^\s]+|www\.[^\s]+/i;
 
 
@@ -633,19 +661,51 @@ if (urlPattern.test(message)) {
 score++;
 
 warnings.push(
-"Website link detected in the message"
+"Website link detected"
 );
+
+
+if (!categories.includes("Phishing Scam")) {
+
+categories.push("Phishing Scam");
+
+}
 
 }
 
 
-/* =========================
-   PHONE NUMBER DETECTION
-========================= */
+/* SHORT URL DETECTION */
+
+const shortUrls = [
+
+"bit.ly",
+"tinyurl.com",
+"t.co",
+"goo.gl",
+"shorturl.at"
+
+];
+
+
+shortUrls.forEach(domain => {
+
+if (message.includes(domain)) {
+
+score++;
+
+warnings.push(
+"Shortened URL detected - destination may be hidden"
+);
+
+}
+
+});
+
+
+/* PHONE NUMBER DETECTION */
 
 const phonePattern =
-
-/\b\d{10}\b/;
+/\b[6-9]\d{9}\b/;
 
 
 if (phonePattern.test(message)) {
@@ -653,99 +713,72 @@ if (phonePattern.test(message)) {
 score++;
 
 warnings.push(
-"Phone number detected - verify independently"
+"Phone number detected - independently verify the organisation"
 );
 
 }
 
 
-/* =========================
-   DETERMINE RISK LEVEL
-========================= */
+/* RISK LEVEL */
 
-let riskLevel = "";
+let riskLevel;
 
-let riskClass = "";
+let riskClass;
 
-let advice = "";
+let advice;
 
-
-/* LOW */
 
 if (score <= 1) {
-
 
 riskLevel =
 "🟢 Low Warning Indicators";
 
-
 riskClass =
 "low";
 
-
 advice =
-
-"The message contains few of the common warning indicators checked by this tool. However, this does not mean the message is safe. Always verify the sender independently.";
-
+"Few common warning indicators were detected. However, this does not mean the message is safe. Always verify the sender independently.";
 
 }
 
 
-/* MEDIUM */
-
-else if (score <= 3) {
-
+else if (score <= 4) {
 
 riskLevel =
 "🟡 Some Warning Indicators";
 
-
 riskClass =
 "medium";
 
-
 advice =
-
-"The message contains multiple warning indicators. Do not click links, share sensitive information, or send money until you verify the sender through an official channel.";
-
+"The message contains multiple warning indicators. Do not click links, share sensitive information, install apps, or send money until you independently verify the sender.";
 
 }
 
 
-/* HIGH */
-
 else {
-
 
 riskLevel =
 "🔴 High Number of Warning Indicators";
 
-
 riskClass =
 "high";
 
-
 advice =
-
-"This message contains several common warning indicators associated with scams. Treat it with caution and independently verify the sender before taking any action.";
-
+"The message contains several warning indicators commonly associated with scams. Treat the communication with caution and independently verify the sender through an official channel before taking action.";
 
 }
 
 
-/* =========================
-   BUILD WARNING LIST
-========================= */
+/* BUILD WARNING LIST */
 
 let warningHTML = "";
 
 
 if (warnings.length > 0) {
 
-
 warningHTML =
-"<h3>Indicators Found:</h3>";
-
+"<h3>Warning Indicators Found</h3>";
 
 warningHTML +=
 "<ul class='warning-list'>";
@@ -753,13 +786,8 @@ warningHTML +=
 
 warnings.forEach(warning => {
 
-
 warningHTML +=
-
-"<li>" +
-warning +
-"</li>";
-
+"<li>" + warning + "</li>";
 
 });
 
@@ -767,27 +795,39 @@ warning +
 warningHTML +=
 "</ul>";
 
-
 }
 
 
 else {
 
-
 warningHTML =
-
-"<p>No common warning keywords were detected by this version of the checker.</p>";
-
+"<p>No common warning indicators were detected by this version of the tool.</p>";
 
 }
 
 
-/* =========================
-   DISPLAY RESULT
-========================= */
+/* CATEGORY */
+
+let categoryHTML = "";
+
+
+if (categories.length > 0) {
+
+categoryHTML =
+"<div class='category-box'>" +
+
+"<strong>Possible Scam Category:</strong><br>" +
+
+categories.join(", ") +
+
+"</div>";
+
+}
+
+
+/* DISPLAY RESULT */
 
 let result =
-
 document.getElementById("result");
 
 
@@ -801,51 +841,35 @@ riskClass;
 
 result.innerHTML =
 
-
-"<h2>" +
-riskLevel +
-"</h2>" +
-
+"<h2>" + riskLevel + "</h2>" +
 
 "<p><strong>Warning Score:</strong> " +
 score +
 "</p>" +
 
+categoryHTML +
 
 warningHTML +
 
-
 "<hr>" +
 
+"<h3>Recommended Action</h3>" +
 
-"<h3>Recommendation</h3>" +
-
-
-"<p>" +
-advice +
-"</p>" +
-
+"<p>" + advice + "</p>" +
 
 "<h3>Safety Steps</h3>" +
 
-
 "<ul>" +
 
-
-"<li>Do not share OTP, PIN or passwords.</li>" +
-
+"<li>Do not share OTP, PIN, password or CVV.</li>" +
 
 "<li>Do not click unknown links.</li>" +
 
+"<li>Do not install unknown applications or APK files.</li>" +
 
-"<li>Do not install unknown applications.</li>" +
+"<li>Do not send money without independent verification.</li>" +
 
-
-"<li>Do not send money without verification.</li>" +
-
-
-"<li>Verify the organisation through its official website.</li>" +
-
+"<li>Contact the organisation only through its official website or app.</li>" +
 
 "</ul>";
 
@@ -854,7 +878,6 @@ advice +
 
 
 </script>
-
 
 </body>
 
