@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Scam Message Checker | Digital Problem Solver India</title>
+
+<style>
+
+/* =========================
+   GENERAL PAGE DESIGN
+========================= */
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+}
+
+
+/* =========================
+   HEADINGS
+========================= */
+
+h1 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #555;
+    line-height: 1.6;
+}
+
+
+/* =========================
+   TEXT AREA
+========================= */
+
+textarea {
+
+    width: 100%;
+
+    height: 200px;
+
+    padding: 15px;
+
+    margin-top: 20px;
+
+    font-size: 16px;
+
+    border: 1px solid #cccccc;
+
+    border-radius: 10px;
+
+    box-sizing: border-box;
+
+    resize: vertical;
+
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+button {
+
+    width: 100%;
+
+    padding: 15px;
+
+    margin-top: 15px;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    border: none;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    background: #222222;
+
+    color: white;
+
+}
+
+button:hover {
+
+    opacity: 0.85;
+
+}
+
+
+/* =========================
+   RESULT BOX
+========================= */
+
+#result {
+
+    margin-top: 25px;
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    display: none;
+
+}
+
+
+/* LOW RISK */
+
+.low {
+
+    background: #e8f5e9;
+
+    border: 1px solid #4caf50;
+
+}
+
+
+/* MEDIUM RISK */
+
+.medium {
+
+    background: #fff8e1;
+
+    border: 1px solid #ff9800;
+
+}
+
+
+/* HIGH RISK */
+
+.high {
+
+    background: #ffebee;
+
+    border: 1px solid #f44336;
+
+}
+
+
+/* =========================
+   WARNING LIST
+========================= */
+
+.warning-list {
+
+    margin-top: 15px;
+
+    line-height: 1.8;
+
+}
+
+
+/* =========================
+   DISCLAIMER
+========================= */
+
+.disclaimer {
+
+    margin-top: 30px;
+
+    padding: 15px;
+
+    background: #f8f8f8;
+
+    border-radius: 10px;
+
+    font-size: 13px;
+
+    color: #555;
+
+    line-height: 1.7;
+
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+
+    text-align: center;
+
+    margin-top: 20px;
+
+    font-size: 12px;
+
+    color: #777;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>🔎 Scam Message Checker</h1>
+
+
+<p class="subtitle">
+
+Paste a suspicious SMS, WhatsApp message, email,
+or online message below.
+
+<br><br>
+
+The tool checks for common scam warning indicators.
+
+</p>
+
+
+<textarea
+
+id="message"
+
+placeholder="Paste suspicious message here...
+
+Example:
+Your bank account will be blocked today.
+Update your KYC immediately by clicking this link...">
+
+</textarea>
+
+
+<button onclick="checkMessage()">
+
+Check Message
+
+</button>
+
+
+<div id="result"></div>
+
+
+<div class="disclaimer">
+
+<strong>Important Privacy Notice</strong>
+
+<br><br>
+
+Do not enter:
+
+<ul>
+
+<li>Passwords</li>
+
+<li>OTP</li>
+
+<li>UPI PIN</li>
+
+<li>ATM PIN</li>
+
+<li>Banking passwords</li>
+
+<li>Card CVV</li>
+
+<li>Full card details</li>
+
+</ul>
+
+This tool checks for common warning indicators only.
+
+It cannot guarantee that a message is genuine or fraudulent.
+
+Always verify suspicious messages through the official
+website or official customer-care channel.
+
+</div>
+
+
+<div class="footer">
+
+Digital Problem Solver India
+
+<br>
+
+Simple solutions for everyday digital problems.
+
+</div>
+
+
+</div>
+
+
+<script>
+
+
+function checkMessage() {
+
+
+/* =========================
+   GET USER MESSAGE
+========================= */
+
+let message = document
+.getElementById("message")
+.value
+.toLowerCase()
+.trim();
+
+
+/* =========================
+   CHECK EMPTY MESSAGE
+========================= */
+
+if (message === "") {
+
+    alert("Please paste a message first.");
+
+    return;
+
+}
+
+
+/* =========================
+   START SCORE
+========================= */
+
+let score = 0;
+
+let warnings = [];
+
+
+/* =========================
+   SCAM INDICATORS DATABASE
+========================= */
+
+const indicators = [
+
+
+/* URGENCY */
+
+{
+words: [
+
+"urgent",
+"immediately",
+"today only",
+"act now",
+"limited time",
+"within 24 hours",
+"last chance"
+
+],
+
+warning:
+"Urgent or pressure-based language detected"
+
+},
+
+
+/* ACCOUNT THREAT */
+
+{
+words: [
+
+"account blocked",
+"account will be blocked",
+"account suspended",
+"suspended",
+"account deactivated",
+"close your account"
+
+],
+
+warning:
+"Account blocking or suspension threat detected"
+
+},
+
+
+/* OTP */
+
+{
+words: [
+
+"otp",
+"one time password"
+
+],
+
+warning:
+"OTP-related request detected"
+
+},
+
+
+/* SENSITIVE BANKING DATA */
+
+{
+words: [
+
+"upi pin",
+"atm pin",
+"cvv",
+"bank password",
+"share password"
+
+],
+
+warning:
+"Request for sensitive banking information detected"
+
+},
+
+
+/* CLICK ACTION */
+
+{
+words: [
+
+"click here",
+"click the link",
+"verify now",
+"click below",
+"open this link"
+
+],
+
+warning:
+"Suspicious action request detected"
+
+},
+
+
+/* APP DOWNLOAD */
+
+{
+words: [
+
+".apk",
+"download app",
+"install app",
+"install application"
+
+],
+
+warning:
+"Application download request detected"
+
+},
+
+
+/* LOTTERY */
+
+{
+words: [
+
+"lottery",
+"you won",
+"prize money",
+"cash prize",
+"congratulations you won"
+
+],
+
+warning:
+"Lottery or prize claim detected"
+
+},
+
+
+/* PAYMENT */
+
+{
+words: [
+
+"pay now",
+"send money",
+"processing fee",
+"verification fee",
+"registration fee",
+"pay immediately"
+
+],
+
+warning:
+"Payment request detected"
+
+},
+
+
+/* KYC */
+
+{
+words: [
+
+"kyc update",
+"update kyc",
+"kyc expired",
+"kyc verification"
+
+],
+
+warning:
+"KYC-related request detected"
+
+},
+
+
+/* REMOTE ACCESS */
+
+{
+words: [
+
+"remote access",
+"anydesk",
+"teamviewer",
+"screen share",
+"share your screen"
+
+],
+
+warning:
+"Remote access request detected"
+
+},
+
+
+/* JOB SCAM */
+
+{
+words: [
+
+"no interview required",
+"guaranteed job",
+"pay registration fee",
+"pay joining fee"
+
+],
+
+warning:
+"Possible job scam indicator detected"
+
+},
+
+
+/* PERSONAL DATA */
+
+{
+words: [
+
+"send aadhaar",
+"send pan card",
+"send bank details"
+
+],
+
+warning:
+"Request for sensitive personal information detected"
+
+}
+
+
+];
+
+
+/* =========================
+   CHECK EACH INDICATOR
+========================= */
+
+indicators.forEach(indicator => {
+
+
+let found = false;
+
+
+indicator.words.forEach(word => {
+
+
+if (message.includes(word)) {
+
+found = true;
+
+}
+
+
+});
+
+
+if (found) {
+
+score++;
+
+warnings.push(indicator.warning);
+
+}
+
+
+});
+
+
+/* =========================
+   URL DETECTION
+========================= */
+
+const urlPattern =
+
+/https?:\/\/[^\s]+|www\.[^\s]+/i;
+
+
+if (urlPattern.test(message)) {
+
+score++;
+
+warnings.push(
+"Website link detected in the message"
+);
+
+}
+
+
+/* =========================
+   PHONE NUMBER DETECTION
+========================= */
+
+const phonePattern =
+
+/\b\d{10}\b/;
+
+
+if (phonePattern.test(message)) {
+
+score++;
+
+warnings.push(
+"Phone number detected - verify independently"
+);
+
+}
+
+
+/* =========================
+   DETERMINE RISK LEVEL
+========================= */
+
+let riskLevel = "";
+
+let riskClass = "";
+
+let advice = "";
+
+
+/* LOW */
+
+if (score <= 1) {
+
+
+riskLevel =
+"🟢 Low Warning Indicators";
+
+
+riskClass =
+"low";
+
+
+advice =
+
+"The message contains few of the common warning indicators checked by this tool. However, this does not mean the message is safe. Always verify the sender independently.";
+
+
+}
+
+
+/* MEDIUM */
+
+else if (score <= 3) {
+
+
+riskLevel =
+"🟡 Some Warning Indicators";
+
+
+riskClass =
+"medium";
+
+
+advice =
+
+"The message contains multiple warning indicators. Do not click links, share sensitive information, or send money until you verify the sender through an official channel.";
+
+
+}
+
+
+/* HIGH */
+
+else {
+
+
+riskLevel =
+"🔴 High Number of Warning Indicators";
+
+
+riskClass =
+"high";
+
+
+advice =
+
+"This message contains several common warning indicators associated with scams. Treat it with caution and independently verify the sender before taking any action.";
+
+
+}
+
+
+/* =========================
+   BUILD WARNING LIST
+========================= */
+
+let warningHTML = "";
+
+
+if (warnings.length > 0) {
+
+
+warningHTML =
+"<h3>Indicators Found:</h3>";
+
+
+warningHTML +=
+"<ul class='warning-list'>";
+
+
+warnings.forEach(warning => {
+
+
+warningHTML +=
+
+"<li>" +
+warning +
+"</li>";
+
+
+});
+
+
+warningHTML +=
+"</ul>";
+
+
+}
+
+
+else {
+
+
+warningHTML =
+
+"<p>No common warning keywords were detected by this version of the checker.</p>";
+
+
+}
+
+
+/* =========================
+   DISPLAY RESULT
+========================= */
+
+let result =
+
+document.getElementById("result");
+
+
+result.style.display =
+"block";
+
+
+result.className =
+riskClass;
+
+
+result.innerHTML =
+
+
+"<h2>" +
+riskLevel +
+"</h2>" +
+
+
+"<p><strong>Warning Score:</strong> " +
+score +
+"</p>" +
+
+
+warningHTML +
+
+
+"<hr>" +
+
+
+"<h3>Recommendation</h3>" +
+
+
+"<p>" +
+advice +
+"</p>" +
+
+
+"<h3>Safety Steps</h3>" +
+
+
+"<ul>" +
+
+
+"<li>Do not share OTP, PIN or passwords.</li>" +
+
+
+"<li>Do not click unknown links.</li>" +
+
+
+"<li>Do not install unknown applications.</li>" +
+
+
+"<li>Do not send money without verification.</li>" +
+
+
+"<li>Verify the organisation through its official website.</li>" +
+
+
+"</ul>";
+
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
